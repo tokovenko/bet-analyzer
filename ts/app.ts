@@ -1,4 +1,4 @@
-import {Analizer} from './Analizer';
+import {Analyzer} from './Analyzer';
 import {DogonStrategyWithLimit} from './strategies/DogonStrategyWithLimit';
 import {Championship} from './Championship'
 import {Season} from './Season';
@@ -6,23 +6,23 @@ import {WinGuestCondition} from './conditions/WinGuestCondition';
 import {GuestTeamConditionFilter} from './conditions/filters/GuestTeamConditionFilter';
 import {KoefMaxConditionFilter} from './conditions/filters/KoefMaxConditionFilter';
 
-var analizer = new Analizer;
+var analyzer = new Analyzer;
 
 
 //win home
 var strategy = new DogonStrategyWithLimit(2000);
 strategy.setBetPercent(20);
 strategy.setBetMaximum(700);
-analizer.setStrategy(strategy);
+analyzer.setStrategy(strategy);
 
-analizer.setSeason(new Season('2011-2012', new Championship('england')));
+analyzer.setSeason(new Season('2011-2012', new Championship('england')));
 
-var condition = new WinGuestCondition
-analizer.setCondition(condition);
-analizer.addConditionFilter(new GuestTeamConditionFilter(['Arsenal']));
+var condition = new WinGuestCondition;
+analyzer.setCondition(condition);
+analyzer.addConditionFilter(new GuestTeamConditionFilter(['Arsenal']));
 //analizer.addConditionFilter(new KoefMaxConditionFilter(2.1));
 //analizer.clearConditionsFilters();
-analizer.run().then(strategy => {
+analyzer.run().then(strategy => {
     strategy.matches.map(BetResult => {
         console.log(
             BetResult.isBetWin,

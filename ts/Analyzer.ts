@@ -3,7 +3,7 @@ import {Strategy} from './Strategy';
 import {Condition} from './Condition';
 import {ConditionFilter} from './ConditionFilter';
 
-class Analizer {
+class Analyzer {
 
     public season: Season;
     public strategy: Strategy;
@@ -52,4 +52,4 @@ class Analizer {
 }
 
 
-export {Analizer};
+export {Analyzer};
