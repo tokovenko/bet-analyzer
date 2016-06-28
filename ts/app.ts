@@ -8,7 +8,7 @@ import {KoefMaxConditionFilter} from './conditions/filters/KoefMaxConditionFilte
 
 var analyzer = new Analyzer;
 
-var strategy = new DogonStrategyWithLimit(2000);
+var strategy = new DogonStrategyWithLimit(1000);
 strategy.setBetPercent(20);
 strategy.setBetMaximum(700);
 analyzer.setStrategy(strategy);

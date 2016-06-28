@@ -33,12 +33,12 @@ class Analyzer {
         var promise = new Promise<Strategy>((resolve, reject) => {
             this.season.loadMatches().then(matches => {
                 matches.map(match => {
-                    let result = this.condition.run(match);
-                    if(result) {
-                        if(result.isBetWin) {
-                            this.strategy.winBet(result);
+                    let bet = this.condition.run(match);
+                    if(bet) {
+                        if(bet.isBetWin) {
+                            this.strategy.winBet(bet);
                         } else {
-                            this.strategy.loseBet(result);
+                            this.strategy.loseBet(bet);
                         }
                     }
                 });
