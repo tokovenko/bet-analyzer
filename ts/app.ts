@@ -8,8 +8,6 @@ import {KoefMaxConditionFilter} from './conditions/filters/KoefMaxConditionFilte
 
 var analyzer = new Analyzer;
 
-
-//win home
 var strategy = new DogonStrategyWithLimit(2000);
 strategy.setBetPercent(20);
 strategy.setBetMaximum(700);
@@ -22,40 +20,16 @@ analyzer.setCondition(condition);
 analyzer.addConditionFilter(new GuestTeamConditionFilter(['Arsenal']));
 //analizer.addConditionFilter(new KoefMaxConditionFilter(2.1));
 //analizer.clearConditionsFilters();
+
 analyzer.run().then(strategy => {
-    strategy.matches.map(BetResult => {
+    strategy.bets.map(bet => {
         console.log(
-            BetResult.isBetWin,
-            BetResult.match.homeTeam + ' - ' + BetResult.match.guestTeam,
-            BetResult.match.result,
-            'bet: ' + BetResult.betSum,
-            'before: ' + BetResult.bankBefore,
-            'after: ' + BetResult.bankAfter
+            bet.isBetWin,
+            bet.match.homeTeam + ' - ' + bet.match.guestTeam,
+            bet.match.result,
+            'bet: ' + bet.betSum,
+            'before: ' + bet.bankBefore,
+            'after: ' + bet.bankAfter
         )
     })
 });
-
-//
-// // Win home by name and another strategy
-// var strategy = new DogonStrategyWithLimit(500);
-// strategy.setBetPercent(10);
-// strategy.setBetMaximum(500);
-// analizer.setStrategy(strategy);
-//
-// var conditionFilter = new HomeTeamConditionFilter(['Arsenal'])
-// analizer.addConditionFilter(conditionFilter);
-//
-// var result = analizer.run();
-//
-
-
-
-
-
-// var result = analizer.run();
-// result.season;
-// result.startBank;
-// result.finishBank;
-// result.matches;
-// result.winMatches;
-// result.loseMatches;

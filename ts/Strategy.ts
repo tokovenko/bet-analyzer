@@ -1,12 +1,12 @@
 import {Match} from './Match';
-import {BetResult} from './BetResult';
+import {Bet} from './Bet';
 
 abstract class Strategy {
 
     public bank: number;
-    public matches: Array<BetResult> = [];
-    public winMatches: Array<BetResult> = [];
-    public loseMatches: Array<BetResult> = [];
+    public bets: Array<Bet> = [];
+    public winBets: Array<Bet> = [];
+    public loseBets: Array<Bet> = [];
 
     constructor(
         public startBank: number
@@ -14,27 +14,38 @@ abstract class Strategy {
         this.bank = this.startBank
     }
 
-    public winBet(betResult: BetResult) {
-        betResult.betSum = this.getBetSum();
-        betResult.bankBefore = this.bank;
-        this.addMoneyToBank(betResult.koef);
-        betResult.bankAfter = this.bank;
-        this.matches.push(betResult);
-        this.winMatches.push(betResult);
+    public winBet(bet: Bet) {
+        this.addBet('win', bet);
     }
 
-    public loseBet(betResult: BetResult) {
-        betResult.betSum = this.getBetSum();
-        betResult.bankBefore = this.bank;
-        this.takeMoneyFromBank();
-        betResult.bankAfter = this.bank;
-        this.matches.push(betResult);
-        this.loseMatches.push(betResult);
+    public loseBet(bet: Bet) {
+        this.addBet('lose', bet);
     }
 
-    abstract addMoneyToBank(koef: number)
+    public addBet(type: string, bet: Bet) {
+        bet.betSum = this.getBetSum();
+        bet.bankBefore = this.bank;
+        if(type=='win') {
+            this.addMoneyToBank(bet.koef);
+        } else {
+            this.takeMoneyFromBank();
+        }
+        bet.bankAfter = this.bank;
+        this.bets.push(bet);
+        if(type=='win') {
+            this.winBets.push(bet);
+        } else {
+            this.loseBets.push(bet);
+        }
+    }
 
-    abstract takeMoneyFromBank()
+    public addMoneyToBank(koef: number) {
+        this.bank = this.bank + this.getBetSum() * koef;
+    }
+
+    public takeMoneyFromBank() {
+        this.bank = this.bank - this.getBetSum();
+    }
 
     abstract getBetSum()
 }

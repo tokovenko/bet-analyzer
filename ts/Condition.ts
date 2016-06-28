@@ -1,5 +1,5 @@
 import {ConditionFilter} from './ConditionFilter';
-import {BetResult} from './BetResult';
+import {Bet} from './Bet';
 import {Match} from './Match';
 
 abstract class Condition {
@@ -16,15 +16,15 @@ abstract class Condition {
         this.filters = [];
     }
 
-    public getBetResult(result: boolean, koef: number, match: Match) {
-        let betResult = new BetResult(result, koef, match);
+    public getBet(result: boolean, koef: number, match: Match) {
+        let bet = new Bet(result, koef, match);
         this.filters.map(filter => {
-            if(betResult && !filter.run(match, koef)) {
-                betResult = null;
+            if(bet && !filter.run(match, koef)) {
+                bet = null;
             }
         });
 
-        return betResult;
+        return bet;
     }
 }
 

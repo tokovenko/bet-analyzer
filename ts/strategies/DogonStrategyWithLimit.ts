@@ -15,14 +15,6 @@ class DogonStrategyWithLimit extends Strategy {
         this.betMaximum = maximum;
     }
 
-    public addMoneyToBank(koef: number) {
-        this.bank = this.bank + this.getBetSum() * koef;
-    }
-
-    public takeMoneyFromBank() {
-        this.bank = this.bank - this.getBetSum();
-    }
-
     public getBetSum() {
         let betSum = this.bank * (this.betPercent / 100);
         return betSum>this.betMaximum ? this.betMaximum : betSum;

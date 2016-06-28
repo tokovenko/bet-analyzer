@@ -1,6 +1,6 @@
 import {Match} from './Match';
 
-class BetResult {
+class Bet {
     public bankBefore: number;
     public bankAfter: number;
     public betSum: number;
@@ -13,4 +13,4 @@ class BetResult {
     }
 }
 
-export {BetResult};
+export {Bet};
